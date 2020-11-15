@@ -2,24 +2,28 @@ import sys
 import pygame
 
 from settings import Settings
+from ship import Ship
+from game_functions import check_events, update_screen
 
 
 def run_game():
     # Инициализирует игру и создает объект экрана.
     pygame.init()
-    screen = pygame.display.set_mode((1200, 800))
+    ai = Settings()
+    screen = pygame.display.set_mode((ai.screen_width,
+                                      ai.screen_height))
     pygame.display.set_caption("Alien Invasion")
-    # Назначение цвета фона. 
-    bg_color = Settings().bg_color
+    # Создание корабля.
+    ship = Ship(screen)
 
     # Запуск основного цикла игры.
     while True:
         # Отслеживание событий клавиатуры и мыши.
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-        # При каждом проходе цикла перерисовывается экран. 
-        screen.fill(bg_color)
+        check_events(ship)
+        ship.update()
+        # При каждом проходе цикла перерисовывается экран.
+        update_screen(ai, screen, ship)
         # Отображение последнего прорисованного экрана.
         pygame.display.flip()
+
 run_game()
