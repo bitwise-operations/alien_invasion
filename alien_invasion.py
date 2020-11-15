@@ -1,6 +1,8 @@
 import sys
 import pygame
 
+from settings import Settings
+
 
 def run_game():
     # Инициализирует игру и создает объект экрана.
@@ -8,7 +10,7 @@ def run_game():
     screen = pygame.display.set_mode((1200, 800))
     pygame.display.set_caption("Alien Invasion")
     # Назначение цвета фона. 
-    bg_color = (135, 206, 250)
+    bg_color = Settings().bg_color
 
     # Запуск основного цикла игры.
     while True:
