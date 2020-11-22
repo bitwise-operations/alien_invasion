@@ -4,7 +4,7 @@ from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
-from game_functions import check_events, update_screen
+from game_functions import check_events, update_screen, update_bullets
 
 
 def run_game():
@@ -26,6 +26,8 @@ def run_game():
         ship.update()
         # Обновление пули
         bullets.update()
+        # Удаление пуль, вышедших за край экрана.
+        update_bullets(bullets)
         # При каждом проходе цикла перерисовывается экран.
         update_screen(ai, screen, ship, bullets)
         # Отображение последнего прорисованного экрана.
