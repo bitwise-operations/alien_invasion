@@ -4,7 +4,9 @@ from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
-from game_functions import check_events, update_screen, update_bullets
+from alien import Alien
+from game_functions import (check_events,
+                            update_screen, update_bullets, create_fleet)
 
 
 def run_game():
@@ -18,6 +20,10 @@ def run_game():
     ship = Ship(ai, screen)
     # Создание группы для хранения пуль.
     bullets = Group()
+    # Создание группы пришельцев.
+    aliens = Group()
+    # Создание флота пришельцев.
+    create_fleet(ai, screen, aliens)
     # Запуск основного цикла игры.
     while True:
         # Отслеживание событий клавиатуры и мыши.
@@ -29,7 +35,7 @@ def run_game():
         # Удаление пуль, вышедших за край экрана.
         update_bullets(bullets)
         # При каждом проходе цикла перерисовывается экран.
-        update_screen(ai, screen, ship, bullets)
+        update_screen(ai, screen, ship, aliens, bullets)
         # Отображение последнего прорисованного экрана.
         pygame.display.flip()
 
