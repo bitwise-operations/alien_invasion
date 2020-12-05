@@ -63,18 +63,27 @@ def fire_bullet(bullets, ai_settings, screen, ship):
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
 
+def get_number_aliens_x(ai_settings, alien_width):
+    """Вычисление количества пришельцев в ряду."""
+    # Интервал между соседними пришельцами равен ширине 0.3 пришельца.
+    available_space_x = ai_settings.screen_width - alien_width
+    return int(available_space_x / (1.3 * alien_width))
+
+def create_alien(ai_settings, screen, aliens, alien_number):
+    """Создание пришельца и размещение его в ряду."""
+    alien = Alien(ai_settings, screen)
+    alien_width = alien.rect.width
+    alien.x = alien_width / 2 + 1.3 * alien_width * alien_number
+    alien.rect.x = alien.x
+    aliens.add(alien)
+
+
 def create_fleet(ai_settings, screen, aliens):
     """Создает флот пришельцев."""
     # Создание пришельца и вычисление количества пришельцев в ряду.
-    # Интервал между соседними пришельцами равен одной ширине пол пришельца.
     alien = Alien(ai_settings, screen)
-    alien_width = alien.rect.width
-    available_space_x = ai_settings.screen_width - alien_width
-    number_aliens_x = int(available_space_x / (1.3 * alien_width))
+    number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
     # Создание первого ряда пришельцев.
     for alien_number in range(number_aliens_x):
         # Создание пришельца и размещение его в ряду.
-        alien = Alien(ai_settings, screen)
-        alien.x = alien_width / 2 + 1.3 * alien_width * alien_number
-        alien.rect.x = alien.x
-        aliens.add(alien)
+        create_alien(ai_settings, screen, aliens, alien_number)
