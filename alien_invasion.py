@@ -23,7 +23,7 @@ def run_game():
     # Создание группы пришельцев.
     aliens = Group()
     # Создание флота пришельцев.
-    create_fleet(ai, screen, aliens)
+    create_fleet(ai, screen, aliens, ship)
     # Запуск основного цикла игры.
     while True:
         # Отслеживание событий клавиатуры и мыши.
