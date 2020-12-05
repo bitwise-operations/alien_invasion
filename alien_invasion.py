@@ -6,7 +6,8 @@ from settings import Settings
 from ship import Ship
 from alien import Alien
 from game_functions import (check_events,
-                            update_screen, update_bullets, create_fleet)
+                            update_screen, update_bullets, create_fleet,
+                            update_aliens)
 
 
 def run_game():
@@ -34,6 +35,8 @@ def run_game():
         bullets.update()
         # Удаление пуль, вышедших за край экрана.
         update_bullets(bullets)
+        # Обновление пришельцев
+        update_aliens(aliens, ai)
         # При каждом проходе цикла перерисовывается экран.
         update_screen(ai, screen, ship, aliens, bullets)
         # Отображение последнего прорисованного экрана.
